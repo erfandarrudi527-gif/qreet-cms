@@ -1,0 +1,7 @@
+data/
+uploads/
+node_modules/
+.next/
+*.log
+*.zip
+*.tsbuildinfo

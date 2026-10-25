@@ -1,0 +1,152 @@
+// Qreet CMS — independent database (PostgreSQL #2)
+// No relations to or from the Qreet Main App database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
+
+// ── CMS authentication (separate from Product auth) ──────────────
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("admin") // admin | editor
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ── Pages: raw HTML/CSS, no page builder ─────────────────────────
+model Page {
+  id       String @id @default(cuid())
+  title    String
+  slug     String @unique
+  image    String? // Page image URL
+  html     String @default("") @db.Text
+  css      String @default("") @db.Text
+  status   Status @default(DRAFT)
+
+  // SEO
+  seoTitle       String?
+  seoDescription String? @db.Text
+  canonicalUrl   String?
+  ogTitle        String?
+  ogDescription  String? @db.Text
+  ogImage        String?
+  robotsIndex    Boolean @default(true)
+  robotsFollow   Boolean @default(true)
+
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ── Blog: structured content from the minimal Tiptap editor ─────
+model Post {
+  id            String  @id @default(cuid())
+  title         String
+  slug          String  @unique
+  excerpt       String  @db.Text @default("")
+  content       String  @db.Text // sanitized HTML produced by Tiptap
+  featuredImage String?
+  featuredImageAlt String?
+  status        Status  @default(DRAFT)
+
+  authorId   String
+  author     Author   @relation(fields: [authorId], references: [id])
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  // SEO
+  seoTitle       String?
+  seoDescription String? @db.Text
+  canonicalUrl   String?
+  ogTitle        String?
+  ogDescription  String? @db.Text
+  ogImage        String?
+  robotsIndex    Boolean @default(true)
+  robotsFollow   Boolean @default(true)
+
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+model Category {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  description    String?  @db.Text
+  seoTitle       String?
+  seoDescription String?  @db.Text
+  canonicalUrl   String?
+  robotsIndex    Boolean  @default(true)
+  robotsFollow   Boolean  @default(true)
+  posts          Post[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Author {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  bio       String?  @db.Text
+  avatar    String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── Shared Media Library (uploads live in CMS storage, e.g. R2) ──
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  url       String   @unique
+  mimeType  String
+  alt       String   @default("")
+  width     Int?
+  height    Int?
+  size      Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ── 301 redirects recorded when a published slug changes ─────────
+model Redirect {
+  id          String   @id @default(cuid())
+  source      String   @unique // previous path, e.g. /blog/old-slug
+  destination String   // new path, e.g. /blog/new-slug
+  statusCode  Int      @default(301)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Singleton settings row ────────────────────────────────────────
+model Setting {
+  id                    Int      @id @default(1)
+  siteName              String   @default("Qreet")
+  logo                  String?
+  defaultSeoTitle       String?
+  defaultSeoDescription String? @db.Text
+  analyticsId           String?
+  clarityId             String?
+  headerHtml            String?  @default("") @db.Text
+  headerCss             String?  @default("") @db.Text
+  footerHtml            String?  @default("") @db.Text
+  footerCss             String?  @default("") @db.Text
+  socialLinks           Json?    // { twitter, instagram, linkedin, ... }
+  updatedAt             DateTime @updatedAt
+}

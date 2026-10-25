@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Qreet CMS — Loading Screen Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #07080d;
+    --card: #0f111a;
+    --border: rgba(255, 255, 255, 0.08);
+    --accent: #a855f7;
+    --cyan: #06b6d4;
+    --emerald: #10b981;
+    --amber: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    padding: 30px 20px 80px;
+  }
+  .header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 40px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    color: #c084fc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+  }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
+  p.subtitle { color: #94a3b8; font-size: 14px; margin-top: 8px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .preview-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .preview-card:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+    transform: translateY(-2px);
+  }
+  .card-top {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.02);
+  }
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #c084fc;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .viewport {
+    height: 380px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #0f1222 0%, #06070c 100%);
+  }
+
+  /* ═════════ 1. CYBERPUNK KERNEL MATRIX ═════════ */
+  .terminal-box {
+    width: 85%;
+    background: rgba(5, 7, 13, 0.9);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 12px;
+    padding: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #34d399;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+  }
+  .term-header {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .term-line { margin: 4px 0; opacity: 0; animation: termFade 4s infinite; }
+  .term-line:nth-child(2) { animation-delay: 0.4s; }
+  .term-line:nth-child(3) { animation-delay: 0.9s; }
+  .term-line:nth-child(4) { animation-delay: 1.4s; }
+  .term-line:nth-child(5) { animation-delay: 1.9s; color: #a7f3d0; font-weight: 700; }
+  @keyframes termFade {
+    0%, 15% { opacity: 0; transform: translateX(-4px); }
+    25%, 85% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; }
+  }
+
+  /* ═════════ 2. ORBITAL NEON HUD ═════════ */
+  .orbit-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(6, 182, 212, 0.5);
+    border-radius: 50%;
+    animation: spin 10s linear infinite;
+  }
+  .ring-2 {
+    position: absolute;
+    width: 78%;
+    height: 78%;
+    border: 2px solid transparent;
+    border-top-color: #06b6d4;
+    border-right-color: #a855f7;
+    border-radius: 50%;
+    animation: spinRev 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+  }
+  .orbit-core {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #06b6d4, #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+  @keyframes spinRev { 100% { transform: rotate(-360deg); } }
+
+  /* ═════════ 3. ISOMETRIC 3D CUBE ═════════ */
+  .cube-scene {
+    width: 100px;
+    height: 100px;
+    perspective: 600px;
+  }
+  .cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 4s infinite linear;
+  }
+  .face {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1.5px solid rgba(192, 132, 252, 0.7);
+    box-shadow: inset 0 0 15px rgba(168, 85, 247, 0.25);
+  }
+  .front  { transform: rotateY(0deg) translateZ(50px); }
+  .back   { transform: rotateX(180deg) translateZ(50px); }
+  .right  { transform: rotateY(90deg) translateZ(50px); }
+  .left   { transform: rotateY(-90deg) translateZ(50px); }
+  .top    { transform: rotateX(90deg) translateZ(50px); }
+  .bottom { transform: rotateX(-90deg) translateZ(50px); }
+  @keyframes rotateCube {
+    0% { transform: rotateX(20deg) rotateY(0deg); }
+    100% { transform: rotateX(20deg) rotateY(360deg); }
+  }
+
+  /* ═════════ 4. AUDIO FREQUENCY / PULSE BEAT ═════════ */
+  .sound-wave {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 60px;
+  }
+  .bar {
+    width: 6px;
+    background: linear-gradient(180deg, #ec4899, #8b5cf6);
+    border-radius: 99px;
+    animation: soundPulse 1.2s ease-in-out infinite alternate;
+  }
+  .bar:nth-child(1) { height: 18px; animation-delay: 0.1s; }
+  .bar:nth-child(2) { height: 35px; animation-delay: 0.3s; }
+  .bar:nth-child(3) { height: 55px; animation-delay: 0.2s; }
+  .bar:nth-child(4) { height: 40px; animation-delay: 0.4s; }
+  .bar:nth-child(5) { height: 20px; animation-delay: 0.15s; }
+  @keyframes soundPulse {
+    0% { transform: scaleY(0.3); opacity: 0.5; }
+    100% { transform: scaleY(1.1); opacity: 1; filter: drop-shadow(0 0 8px #ec4899); }
+  }
+
+  .card-desc {
+    padding: 18px 20px;
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    background: rgba(0,0,0,0.2);
+  }
+  .card-desc b { color: #f1f5f9; display: block; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="badge">QREET CMS SHOWCASE</span>
+  <h1>انتخاب نمونه لودینگ حرفه‌ای</h1>
+  <p class="subtitle">۴ سبک مدرن، پرانرژی و جذاب طراحی شده برای انتخاب شما</p>
+</div>
+
+<div class="grid">
+  <!-- Option A: Cyberpunk Kernel -->
+  <div class="preview-card">
+    <div class="card-top">
+      <span class="card-num">نمونه ۱</span>
+      <span class="card-title">Cyberpunk Kernel Matrix</span>
+    </div>
+    <div class="viewport">
+      <div class="terminal-box">
+        <div class="term-header">
+          <div class="dot" style="background:#ef4444"></div>
+          <div class="dot" style="background:#f59e0b"></div>
+          <div class="dot" style="background:#10b981"></div>
+        </div>
+        <div class="term-line">> INITIALIZING QREET ENGINE...</div>
+        <div class="term-line">> MOUNTING SERVERLESS ROUTER [OK]</div>
+        <div class="term-line">> VERIFYING PRISMA CACHE [OK]</div>
+        <div class="term-line">> READY_STATE: 100% SECURE</div>
+      </div>
+    </div>
+    <div class="card-desc">
+      <b>سبک کنسول هکری / سیستم‌عامل پیشرفته</b>
+      تایپ خطی سریع لاگ‌های بارگذاری سرور و ماژول‌ها، حسی بسیار فنی، هوشمند و پرقدرت به مشتری القا می‌کند.
+    </div>
+  </div>
+
+  <!-- Option B: Orbital Neon HUD -->
+  <div class="preview-card">
+    <div class="card-top">
+      <span class="card-num">نمونه ۲</span>
+      <span class="card-title">Orbital Neon HUD</span>
+    </div>
+    <div class="viewport">
+      <div class="orbit-container">
+        <div class="ring-1"></div>
+        <div class="ring-2"></div>
+        <div class="orbit-core">Q</div>
+      </div>
+      <p style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #06b6d4;">SYNCING SYSTEM</p>
+    </div>
+    <div class="card-desc">
+      <b>سبک راداری / مدار فضایی نئونی دو رنگ (Cyan + Purple)</b>
+      حلقه‌های دوگانه متقارن با سرعت‌های متفاوت و نشانگر مغناطیسی نورانی در مرکز.
+    </div>
+  </div>
+
+  <!-- Option C: 3D Holographic Cube -->
+  <div class="preview-card">
+    <div class="card-top">
+      <span class="card-num">نمونه ۳</span>
+      <span class="card-title">3D Holographic Cube</span>
+    </div>
+    <div class="viewport">
+      <div class="cube-scene">
+        <div class="cube">
+          <div class="face front"></div>
+          <div class="face back"></div>
+          <div class="face right"></div>
+          <div class="face left"></div>
+          <div class="face top"></div>
+          <div class="face bottom"></div>
+        </div>
+      </div>
+      <p style="margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #c084fc;">COMPILING SHADERS</p>
+    </div>
+    <div class="card-desc">
+      <b>مکعب شیشه‌ای سه‌بعدی هولوگرافیک</b>
+      چرخش ۳بعدی با CSS خالص بدون افت فریم؛ انعکاس لبه‌های نوری بنفش در فضای تاریک.
+    </div>
+  </div>
+
+  <!-- Option D: Quantum Audio Spectrum -->
+  <div class="preview-card">
+    <div class="card-top">
+      <span class="card-num">نمونه ۴</span>
+      <span class="card-title">Quantum Pulse Wave</span>
+    </div>
+    <div class="viewport">
+      <div class="sound-wave">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <p style="margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; color: #f472b6;">STREAMING DATA</p>
+    </div>
+    <div class="card-desc">
+      <b>فرکانس کوانتومی / امواج متحرک نئونی</b>
+      میله‌های فرکانسی متقارن و ارتعاشی با درخشش نئونی صورتی-بنفش، مینیمال، شیک و بدون کلافه‌کنندگی.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

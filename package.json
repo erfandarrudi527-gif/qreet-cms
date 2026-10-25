@@ -1,0 +1,46 @@
+{
+  "name": "qreet-cms",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "npx prisma generate && next build",
+    "start": "next start",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:local": "node scripts/db-server.mjs"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.16.1",
+    "@tiptap/extension-image": "^2.5.8",
+    "@tiptap/extension-link": "^2.5.8",
+    "@tiptap/react": "^2.5.8",
+    "@tiptap/starter-kit": "^2.5.8",
+    "bcryptjs": "^2.4.3",
+    "isomorphic-dompurify": "^2.13.0",
+    "jszip": "^3.10.1",
+    "next": "14.2.35",
+    "next-auth": "^4.24.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "embedded-postgres": "^16.14.0-beta.17",
+    "image-size": "^1.1.1",
+    "postcss": "^8.4.39",
+    "prisma": "^5.16.1",
+    "tailwindcss": "^3.4.6",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}

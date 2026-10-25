@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qreet CMS — سامانه مدیریت محتوای پیشرفته</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body { background: #080912; color: #e2e8f0; font-family: 'Vazirmatn', sans-serif; padding: 40px 20px; margin: 0; line-height: 1.8; }
+  .container { max-width: 900px; margin: 0 auto; background: #0f1123; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+  h1 { color: #a855f7; font-size: 36px; font-weight: 900; margin-top: 0; }
+  .badge { display: inline-block; padding: 4px 14px; background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; color: #c084fc; font-family: 'JetBrains Mono', monospace; font-size: 13px; border-radius: 99px; margin-bottom: 20px; }
+  p { color: #94a3b8; font-size: 16px; }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 30px 0; }
+  .tech-card { background: #161936; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: center; }
+  .tech-card b { display: block; color: #fff; font-size: 18px; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+  .tech-card span { font-size: 12px; color: #94a3b8; }
+  .code-block { background: #05060d; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #38bdf8; overflow-x: auto; direction: ltr; text-align: left; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Next.js 14 App Router + Prisma ORM</span>
+    <h1>سامانه مدیریت محتوای Qreet CMS</h1>
+    <p>پلتفرم جامع مدیریت داده و سیستم CMS توسعه داده شده با فناوری‌های مدرن بک‌اند و فرانت‌اند جهت ساخت وب‌سایت‌ها و اپلیکیشن‌های پویا.</p>
+    
+    <div class="tech-grid">
+      <div class="tech-card"><b>Next.js 14</b><span>فریم‌ورک React با Server Actions</span></div>
+      <div class="tech-card"><b>Prisma ORM</b><span>مدیریت دیتابیس و Schema</span></div>
+      <div class="tech-card"><b>TypeScript</b><span>کدنویسی تایپ‌پایدار و ایمن</span></div>
+      <div class="tech-card"><b>Tailwind CSS</b><span>طراحی رابط کاربری سیستم</span></div>
+    </div>
+
+    <h3>ساختار معماری پروژه (Architecture):</h3>
+    <div class="code-block">
+qreet-cms/
+├── src/
+│   ├── app/ (Next.js App Router pages & API routes)
+│   ├── components/ (Reusable UI Components)
+│   ├── lib/ (Prisma Client & Helper Functions)
+│   └── types/ (TypeScript Definitions)
+├── prisma/
+│   └── schema.prisma (Database Models & Migrations)
+└── package.json (Dependencies & Scripts)
+    </div>
+  </div>
+</body>
+</html>
